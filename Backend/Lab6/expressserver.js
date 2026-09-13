@@ -75,7 +75,6 @@ app.post("/login", (req, res) => {
   res.json({ message: "Login successful", user });
 });
 
-// Start Server
 app.listen(port, () => {
   console.log(`Server running on http://localhost:${port}`);
 });
