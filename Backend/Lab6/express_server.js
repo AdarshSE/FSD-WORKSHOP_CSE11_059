@@ -1,11 +1,11 @@
 import express from "express";
 //import dotenv from "dotenv";
-// import cors from "cors";
+import cors from "cors";
 //dotenv.config();
 const port = 3002;
 const app = express();
-app.use(express.json());git
-// app.use(cors());
+app.use(express.json());
+app.use(cors());
 const userData = [
   {
     id: 101,
@@ -18,7 +18,6 @@ const userData = [
     email: "bk68@gmail.com",
   }
 ];
-// const registerData = [];
 
   // Routes
 app.get("/", (req, res) => {
@@ -26,13 +25,14 @@ app.get("/", (req, res) => {
 });
 
 app.get("/users", (req, res) => {
-  res.json(userData);
+  res.status(200).json({ message: "Users fetched successfully", users: userData });
 });
 
-app.get("/user/:id", (req, res) => {
-  const user = userData.find((u) => u.id === parseInt(req.params.id));
+app.get("/userByid/:id", (req, res) => {
+  const id = parseInt(req.params.id);
+  const user = userData.find((u) => u.id === id);
   if (!user) return res.status(404).json({ message: "User not found" });
-  res.json(user);
+  res.status(200).json({ message: "User fetched successfully", user });
 });
 
 app.post("/create", (req, res) => {
@@ -46,25 +46,21 @@ app.post("/create", (req, res) => {
 });
 
 app.put("/edit/:id", (req, res) => {
-  const user = userData.find((u) => u.id === parseInt(req.params.id));
+  const id = parseInt(req.params.id);
+  const user = userData.find((u) => u.id === id);
   if (!user) return res.status(404).json({ message: "User not found" });
   
   Object.assign(user, req.body);
-  res.json({ message: "User updated successfully", user });
+  res.status(200).json({ message: "User updated successfully", user });
 });
 
 app.delete("/delete/:id", (req, res) => {
-  const index = userData.findIndex((u) => u.id === parseInt(req.params.id));
+  const id = parseInt(req.params.id);
+  const index = userData.findIndex((u) => u.id === id);
   if (index === -1) return res.status(404).json({ message: "User not found" });
 
   userData.splice(index, 1);
-  res.json({ message: "User deleted successfully" });
-});
-
-app.post("/registerd", (req, res) => {
-  const newUser = req.body;
-  registerData.push(newUser);
-  res.status(201).json({ message: "User registered successfully", data: newUser });
+  res.status(200).json({ message: "User deleted successfully" });
 });
 
 app.post("/login", (req, res) => {
