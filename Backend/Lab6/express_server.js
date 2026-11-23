@@ -10,11 +10,9 @@ dotenv.config();
 const app = express();
 const port = 3000;
 
-// Middleware
 app.use(cors());
 app.use(express.json());
 
-// Sample user data
 const userdata = [
     {
         id: 1,
