@@ -34,14 +34,12 @@ const userdata = [
     }
 ];
 
-// Home route
 app.get("/", (req, res) => {
     res.status(200).json({
         message: "Welcome to the server"
     });
 });
 
-// Get all users
 app.get("/user", (req, res) => {
     res.status(200).json({
         message: "All users",
@@ -49,7 +47,6 @@ app.get("/user", (req, res) => {
     });
 });
 
-// Get user by ID
 app.get("/user/:id", (req, res) => {
     const id = Number(req.params.id);
 
@@ -67,7 +64,6 @@ app.get("/user/:id", (req, res) => {
     });
 });
 
-// Get registered users
 app.get("/registered", (req, res) => {
     const registeredUsers = userdata.filter(
         user => user.reg === "newdata"
@@ -79,14 +75,12 @@ app.get("/registered", (req, res) => {
     });
 });
 
-// Register route
 app.get("/register", (req, res) => {
     res.status(200).json({
         message: "Register endpoint"
     });
 });
 
-// Create a new user
 
 app.post("/test-db", async (req, res) => {
     try {
@@ -163,7 +157,6 @@ app.post("/create", (req, res) => {
     }
 });
 
-// Login route
 app.post("/login", (req, res) => {
 
     const { name, reg } = req.body;
@@ -194,7 +187,6 @@ app.post("/login", (req, res) => {
     });
 });
 
-// Edit user
 app.put("/edit/:id", (req, res) => {
     const id = Number(req.params.id);
 
@@ -226,7 +218,6 @@ app.put("/edit/:id", (req, res) => {
     });
 });
 
-// Delete user
 app.delete("/delete/:id", (req, res) => {
     const id = Number(req.params.id);
 
@@ -246,7 +237,6 @@ app.delete("/delete/:id", (req, res) => {
     });
 });
 
-// Start server (kept at the bottom)
 connecting()
     .then(() => {
         app.listen(port, () => {
